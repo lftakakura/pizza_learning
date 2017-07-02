@@ -9,6 +9,7 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.multiclass import OneVsRestClassifier
 import numpy as np
 import pandas as pd
+import pickle
 
 
 class Category(Enum):
@@ -72,8 +73,11 @@ X_tfidf = tfidf_transformer.fit_transform(X_counts)
 print(X_tfidf)
 print(labels)
 
-clf = MultinomialNB(alpha=0.01).fit(X_tfidf, labels)
+clf = pickle.load(open('model.pkl', 'rb'))
+# clf = MultinomialNB(alpha=0.01).fit(X_tfidf, labels)
 # clf = SGDClassifier(loss='hinge', penalty='l2', alpha=1e-3, n_iter=5, random_state=42).fit(X_tfidf, labels)
+pickle.dump(clf, open('model.pkl', 'wb'))
+
 
 # # test data
 # df = pd.read_csv(test_data, header=None)
