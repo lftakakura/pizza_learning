@@ -2,9 +2,7 @@ import urllib.request
 from selenium import webdriver
 from bs4 import BeautifulSoup
 
-
-
-driver = webdriver.Chrome('./chromedriver')  # Optional argument, if not specified will search path.
+# driver = webdriver.Chrome('./chromedriver')  # Optional argument, if not specified will search path.
 
 categories_dict = {
     'Ação': '1',

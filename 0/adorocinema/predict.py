@@ -34,6 +34,8 @@ DATA_FILE = 'movies_test.csv'
 
 data = pd.read_csv(DATA_FILE, sep=',')
 
+print('=> Dataset loaded')
+
 # shuffle data
 data = data.sample(frac=1)
 data = data.applymap(str)
@@ -61,8 +63,8 @@ df = data
 # features = list()
 # labels = list(['13', '7', '10'])
 
-print(features)
-print(labels)
+# print(features)
+# print(labels)
 
 count_vect = CountVectorizer()
 X_counts = count_vect.fit_transform(features)
@@ -70,14 +72,17 @@ X_counts = count_vect.fit_transform(features)
 tfidf_transformer = TfidfTransformer()
 X_tfidf = tfidf_transformer.fit_transform(X_counts)
 
-print(X_tfidf)
-print(labels)
+print('=> Dataset processed')
 
-clf = pickle.load(open('model.pkl', 'rb'))
-# clf = MultinomialNB(alpha=0.01).fit(X_tfidf, labels)
+# print(X_tfidf)
+# print(labels)
+
+# clf = pickle.load(open('model.pkl', 'rb'))
+clf = MultinomialNB(alpha=0.01).fit(X_tfidf, labels)
 # clf = SGDClassifier(loss='hinge', penalty='l2', alpha=1e-3, n_iter=5, random_state=42).fit(X_tfidf, labels)
 pickle.dump(clf, open('model.pkl', 'wb'))
 
+print('=> Model trained')
 
 # # test data
 # df = pd.read_csv(test_data, header=None)
