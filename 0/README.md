@@ -1,6 +1,7 @@
 # Pizza Learning 2 #
 
 ## Sobre ##
+Modelo simples de predição utilizando a bilbioteca sklearn (http://scikit-learn.org/stable/) para categorizar descriçes de filmes em um set pré-definido de categorias.
 
 As apresentaçes estão no diretório 0 e os códigos estão no diretório 0/adorocinema
 Todos os código estão escritos em python 3.x. 
