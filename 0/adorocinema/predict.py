@@ -1,6 +1,7 @@
 import sys
 from enum import Enum
 from sklearn import tree
+from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
@@ -66,21 +67,30 @@ df = data
 # print(features)
 # print(labels)
 
-count_vect = CountVectorizer()
-X_counts = count_vect.fit_transform(features)
+# count_vect = CountVectorizer()
+# X_counts = count_vect.fit_transform(features)
 
-tfidf_transformer = TfidfTransformer()
-X_tfidf = tfidf_transformer.fit_transform(X_counts)
+# tfidf_transformer = TfidfTransformer()
+# X_tfidf = tfidf_transformer.fit_transform(X_counts)
 
 print('=> Dataset processed')
 
 # print(X_tfidf)
 # print(labels)
 
-# clf = pickle.load(open('model.pkl', 'rb'))
-clf = MultinomialNB(alpha=0.01).fit(X_tfidf, labels)
+clf = pickle.load(open('model.pkl', 'rb'))
+# count_vect = pickle.load(open('count_vect.pkl', 'rb'))
+# tfidf_transformer = pickle.load(open('tfidf_transformer.pkl', 'rb'))
+# clf = Pipeline([('count', CountVectorizer()),
+#                 ('tfidf', TfidfTransformer()),
+#                 ('clf', MultinomialNB(alpha=0.01))])
+# clf.fit(features, labels)
+
 # clf = SGDClassifier(loss='hinge', penalty='l2', alpha=1e-3, n_iter=5, random_state=42).fit(X_tfidf, labels)
-pickle.dump(clf, open('model.pkl', 'wb'))
+
+# pickle.dump(clf, open('model.pkl', 'wb'))
+# pickle.dump(count_vect, open('count_vect.pkl', 'wb'))
+# pickle.dump(tfidf_transformer, open('tfidf_transformer.pkl', 'wb'))
 
 print('=> Model trained')
 
@@ -94,11 +104,11 @@ while True:
     print('Escreva uma descrição de um filme: ')
     text = input()
 
-    X_counts = count_vect.transform([text])
-    X_tfidf = tfidf_transformer.transform(X_counts)
+    # X_counts = count_vect.transform([text])
+    # X_tfidf = tfidf_transformer.transform(X_counts)
 
-    predicted = clf.predict(X_tfidf)
-    predicted_proba = clf.predict_proba(X_tfidf)
+    predicted = clf.predict([text])
+    predicted_proba = clf.predict_proba([text])
 
     print(predicted)
     # print(predicted_proba)
